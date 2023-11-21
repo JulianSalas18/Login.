@@ -1,0 +1,131 @@
+import java.util.Scanner;
+
+public class Login {
+
+    private static final Scanner sc = new Scanner(System.in);
+
+    public static void main(String[] args) {
+
+        // Bucle principal del programa
+        while (true) {
+
+            // Mostrar el menú principal
+            System.out.println("¿Qué desea hacer?");
+            System.out.println("1. Iniciar sesión");
+            System.out.println("2. Registrarse");
+            System.out.println("3. Salir");
+
+            // Leer la opción del usuario
+            int opcion = sc.nextInt();
+
+            // Procesar la opción del usuario
+            switch (opcion) {
+
+                case 1:
+                    // Iniciar sesión
+                    login();
+                    break;
+
+                case 2:
+                    // Registrarse
+                    register();
+                    break;
+
+                case 3:
+                    // Salir
+                    System.out.println("Gracias por usar el programa.");
+                    System.exit(0);
+                    break;
+
+                default:
+                    // Opción no válida
+                    System.out.println("Opción no válida.");
+                    break;
+            }
+        }
+    }
+
+    /**
+     * Método para iniciar sesión
+     */
+    private static void login() {
+
+        // Solicitar el usuario o correo electrónico
+        System.out.println("Ingrese su usuario o correo electrónico:");
+        String usuario = sc.nextLine();
+
+        // Solicitar la contraseña
+        System.out.println("Ingrese su contraseña:");
+        String contraseña = sc.nextLine();
+
+        // Verificar las credenciales
+        int intentos = 0;
+        boolean autenticado = false;
+        do {
+
+            // Incrementar el número de intentos
+            intentos++;
+
+            // Verificar las credenciales
+            autenticado = autenticar(usuario, contraseña);
+
+            // Mostrar el mensaje correspondiente
+            if (!autenticado) {
+                System.out.println("Acceso denegado.");
+            } else {
+                System.out.println("Acceso concedido.");
+            }
+
+        } while (!autenticado && intentos < 3);
+
+        // Si se han superado los 3 intentos, bloquear el usuario
+        if (intentos == 3) {
+            System.out.println("Usuario bloqueado.");
+        }
+    }
+
+    /**
+     * Método para autenticar las credenciales
+     *
+     * @param usuario El usuario o correo electrónico
+     * @param contraseña La contraseña
+     * @return Verdadero si las credenciales son correctas, falso en caso contrario
+     */
+    private static boolean autenticar(String usuario, String contraseña) {
+
+        // Simular una base de datos de usuarios
+        String[] usuarios = {"usuario1", "usuario2", "usuario3"};
+        String[] contraseñas = {"contraseña1", "contraseña2", "contraseña3"};
+
+        // Buscar el usuario en la base de datos
+        for (int i = 0; i < usuarios.length; i++) {
+            if (usuarios[i].equals(usuario)) {
+
+                // Comprobar la contraseña
+                if (contraseñas[i].equals(contraseña)) {
+                    return true;
+                }
+            }
+        }
+
+        // Las credenciales no son correctas
+        return false;
+    }
+
+    /**
+     * Método para registrar un nuevo usuario
+     */
+    private static void register() {
+
+        // Solicitar el usuario
+        System.out.println("Ingrese su usuario:");
+        String usuario = sc.nextLine();
+
+        // Solicitar la contraseña
+        System.out.println("Ingrese su contraseña:");
+        String contraseña = sc.nextLine();
+
+        // Registrar el nuevo usuario
+        System.out.println("Usuario nuevo registrado.");
+    }
+}
